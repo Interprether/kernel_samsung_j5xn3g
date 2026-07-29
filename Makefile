@@ -117,9 +117,11 @@ ifneq ($(KBUILD_OUTPUT),)
 # Invoke a second make in the output directory, passing relevant variables
 # check that the output directory actually exists
 saved-output := $(KBUILD_OUTPUT)
-KBUILD_OUTPUT := $(shell cd $(KBUILD_OUTPUT) && /bin/pwd)
+$(shell mkdir -p $(saved-output))
+KBUILD_OUTPUT := $(shell cd $(saved-output) && /bin/pwd)
 $(if $(KBUILD_OUTPUT),, \
      $(error output directory "$(saved-output)" does not exist))
+
 
 PHONY += $(MAKECMDGOALS) sub-make
 
